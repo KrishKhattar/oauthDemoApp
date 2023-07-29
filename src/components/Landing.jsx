@@ -9,16 +9,19 @@ function Landing() {
 
     const navigate = useNavigate();
 
-    const handleRegister = () => {
-        sdk.register(successURL, failureURL);
+    const handleRegister = (platform) => {
+        sdk.register(platform, successURL, failureURL);
     }
 
     return (
         <div className="u-main-center u-flex u-margin-32">
           <div className="u-margin-32">
             <p className="pb-4 heading-level-3 u-margin-32">WELCOME🤗</p>
-            <button className="button u-margin-32" onClick={handleRegister}>
+            <button className="button u-margin-32" onClick={() => handleRegister('github')}>
               <span className="icon-github"></span>Continue with GitHub
+            </button>
+            <button className="button u-margin-32" onClick={() => handleRegister('google')}>
+              <span className="icon-google"></span>Continue with Google
             </button>
           </div>
         </div>

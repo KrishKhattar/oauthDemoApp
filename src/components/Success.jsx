@@ -6,7 +6,6 @@ function Success() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
-  const [githubData, setGithubData] = useState({});
   const [accountData, setAccountData] = useState({});
   const [sessionData, setSessionData] = useState({});
 
@@ -17,10 +16,8 @@ function Success() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const githubResponse = await sdk.getGithubData();
       const accountResponse = await sdk.getAccount();
       const sessionResponse = await sdk.getSession();
-      setGithubData(githubResponse);
       setAccountData(accountResponse);
       setSessionData(sessionResponse);
       setLoading(false);
@@ -38,13 +35,6 @@ function Success() {
   ) : (
     <>
       <div className="u-margin-32 u-flex u-gap-24 u-main-center">
-        {githubData.avatar_url && (
-          <img
-            className="avatar is-size-large	"
-            src={githubData.avatar_url}
-            alt="Avatar"
-          />
-        )}
         <h1 className="heading-level-1">
           {accountData.name && `Hi, ${accountData.name}👋`}
         </h1>
@@ -56,12 +46,6 @@ function Success() {
       <h3 className="u-margin-32 heading-level-4">Get session:</h3>
       <div className="u-margin-32 card is-allow-focus u-flex u-gap-8">
         <pre>{JSON.stringify(sessionData, null, 2)}</pre>
-      </div>
-      <h3 className="u-margin-32 heading-level-4">
-        Calling GitHub API through access token:
-      </h3>
-      <div className="u-margin-32 card is-allow-focus u-flex u-gap-8">
-        <pre>{JSON.stringify(githubData, null, 2)}</pre>
       </div>
       <div className="u-margin-32 u-main-center u-flex">
         <button

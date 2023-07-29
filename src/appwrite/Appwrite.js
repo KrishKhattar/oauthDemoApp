@@ -8,9 +8,9 @@ client
 const account = new Account(client);
 
 export const sdk = {
-  register: async (success, failure) => {
+  register: async (platform, success, failure) => {
     //create oauth2 session
-    account.createOAuth2Session("github", success, failure);
+    account.createOAuth2Session(platform, success, failure);
   },
 
   getAccount: async () => {
@@ -21,18 +21,6 @@ export const sdk = {
   getSession: async () => {
     //get current session data
     return await account.getSession("current");
-  },
-
-  getGithubData: async () => {
-    //get user's provider access token
-    const promise = await account.getSession("current");
-    console.log(promise.providerAccessToken);
-
-    //make a request to github api
-    const response = await fetch("https://api.github.com/user", {
-      headers: { Authorization: `token ${promise.providerAccessToken}` },
-    });
-    return await response.json();
   },
 
   logout: async () => {
